@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Providers/AuthContext';
 import Button from '../Reusable/Button';
 import { MdLogout } from "react-icons/md";
+import { FaShoppingBasket } from "react-icons/fa";
 const Header = () => {
   const { isLogged, logout, userPayload } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,7 +21,7 @@ const Header = () => {
   // }, [menuOpen]);
 
   return (
-    <header className="bg-white py-4 md:px-0 px-4 h-16">
+    <header className="bg-white py-2 md:px-0 px-4  shadow-md">
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="text-2xl font-semibold">
           JO
@@ -39,10 +40,17 @@ const Header = () => {
               <div className='cursor-pointer'><MdLogout size={25} onClick={() => { logout(); navigate('/') }} /></div>
             </>
           ) : (
-            <>
+            <div className='flex flex-row gap-3 justify-center items-center'>
               <Button to="/login" color={"red"} mode="outlined" >Connexion</Button>
               <Button to="/signup" color={"red"} mode="contained" >Nous rejoindre</Button>
-            </>
+              <div className='relative cursor-pointer'>
+                <div className='absolute text-red-600 bg-slate-100 rounded-full  right-[-10px]'>
+
+                  <p className='px-[4px] text-sm'>1</p>
+                </div>
+                <FaShoppingBasket size={30} color='red' />
+              </div>
+            </div>
           )}
         </div>
 
