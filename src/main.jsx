@@ -1,5 +1,5 @@
 import './index.css'
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
@@ -11,12 +11,14 @@ import Home from './Pages/Public/Home.jsx';
 import LoadingScreen from './Composants/Reusable/LoadingScreen.jsx';
 import AdminBoard from './Pages/Admin/AdminBoard.jsx';
 import AdminHome from './Pages/Admin/AdminHome.jsx';
+import Offers from './Pages/Public/Offers.jsx';
 const queryClient = new QueryClient()
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path='/' element={<HeaderAndFooter />}>
         <Route index element={<Home />} />
+        <Route path="/offers" element={<Offers />} />
         <Route path='/login' element={<Login />} />
         {/* <Route path='/signup' element={<Signup />} /> */}
         <Route path='*' element={<Error404 />} />

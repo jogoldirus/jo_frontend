@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 // import gsap from 'gsap';
 import { useNavigate } from 'react-router-dom';
@@ -23,12 +23,12 @@ const Header = () => {
     <header className="bg-white py-4 md:px-0 px-4 h-16">
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="text-2xl font-semibold">
-          MyPaotScan
+          JO
         </Link>
         <p>Welcome {userPayload.email} {userPayload.userID}</p>
         <div className="hidden md:flex items-center space-x-6">
-          <Link to="/features" className="text-lg">Découvrir</Link>
-          <Link to="/pricing" className="text-lg">Offres</Link>
+          {/* <Link to="/features" className="text-lg">Découvrir</Link> */}
+          <Link to="/offers" className="text-lg">Offres</Link>
         </div>
         <div className="hidden md:flex items-center space-x-6">
           {isLogged ? (

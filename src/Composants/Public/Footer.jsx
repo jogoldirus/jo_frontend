@@ -3,8 +3,8 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-1 pb-3">
-          <h2 className="text-lg font-semibold">Our history</h2>
-          <p className="text-justify">PAOTScan® is a French IoT – BioTech StartUp specialized in antioxidants technology and applications, for a better health.</p>
+          <h2 className="text-lg font-semibold">Informations</h2>
+          <p className="text-justify">Avec près de 10 millions de billets mis en vente pour les Jeux Olympiques et plus de 3 millions de billets pour les Jeux Paralympiques, les Jeux sont le plus grand événement sportif au monde. En 2024, les spectateurs vivront les Jeux aux côtés des plus grands champions, dans une ambiance de fête unique, avec le monde entier.</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="space-y-4">
@@ -41,7 +41,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 text-center">
-          <p className="text-sm">© 2023 MyPaotScan. Tous droits réservés.</p>
+          <p className="text-sm">© 2024. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
