@@ -1,10 +1,16 @@
 import Button from "../../Composants/Reusable/Button"
+import { useBasket } from "../../Providers/BasketContext"
 
-const OfferCard = ({ name = 'Name formula', description = 'A description', color = "black" }) => {
+const OfferCard = ({ name = 'Name formula', description = 'A description', color = "black", id }) => {
+  const { addToBasket } = useBasket()
   return <div style={{ backgroundColor: color }} className='gap-4 px-10 py-6 flex flex-col justify-center  items-center flex-1 rounded'>
     <h1 className="text-white font-bold text-2xl">{name}</h1>
     <h3 className='text-white'>{description}</h3>
-    <Button text='Réserver' mode='contained' color={color} />
+    <Button text='Réserver' onClick={async () => addToBasket({
+      id,
+      name,
+      description
+    })} mode='contained' color={color} />
   </div>
 }
 function Offers() {
@@ -16,23 +22,26 @@ function Offers() {
         {
           [
             {
+              id: 1,
               name: "Solo",
               description: "Accès illimités - 1 place",
               color: "blue"
             },
             {
+              id: 2,
               name: "Duo",
               description: "Accès illimités - 2 place",
               color: "red"
             },
             {
+              id: 3,
               name: "Famille",
               description: "Accès illimités - 4 place",
               color: "green"
             },
 
 
-          ].map((item, i) => <OfferCard key={i + 'offerskey'} color={item.color} name={item.name} description={item.description} />)
+          ].map((item, i) => <OfferCard key={i + 'offerskey'} id={item.id} color={item.color} name={item.name} description={item.description} />)
         }
       </div>
     </div>

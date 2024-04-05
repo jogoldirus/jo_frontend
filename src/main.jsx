@@ -12,6 +12,8 @@ import LoadingScreen from './Composants/Reusable/LoadingScreen.jsx';
 import AdminBoard from './Pages/Admin/AdminBoard.jsx';
 import AdminHome from './Pages/Admin/AdminHome.jsx';
 import Offers from './Pages/Public/Offers.jsx';
+import { BasketProvider } from './Providers/BasketContext.jsx';
+import Basket from './Pages/Public/Basket.jsx';
 const queryClient = new QueryClient()
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +22,7 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="/offers" element={<Offers />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/basket' element={<Basket />} />
         {/* <Route path='/signup' element={<Signup />} /> */}
         <Route path='*' element={<Error404 />} />
       </Route>
@@ -44,7 +47,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
     <Suspense fallback={<LoadingScreen />}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <BasketProvider>
+          <RouterProvider router={router} />
+        </BasketProvider>
       </AuthProvider>
     </Suspense>
   </QueryClientProvider>

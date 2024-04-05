@@ -6,18 +6,19 @@ import { useAuth } from '../../Providers/AuthContext';
 import Button from '../Reusable/Button';
 import { MdLogout } from "react-icons/md";
 import { FaShoppingBasket } from "react-icons/fa";
+import { useBasket } from '../../Providers/BasketContext';
 const Header = () => {
   const { isLogged, logout, userPayload } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
-
+  const { basketSize } = useBasket()
   // useEffect(() => {
   //   gsap.set(menuRef.current, { autoAlpha: 0 });
   // }, []);
 
   // useEffect(() => {
-  //   gsap.to(menuRef.current, { autoAlpha: menuOpen ? 1 : 0, duration: 0.3 });
+  //   gsap.to(menuRef.current, { autoAlpha: menuOpen ? 1 : duration: 0.3 });
   // }, [menuOpen]);
 
   return (
@@ -46,9 +47,11 @@ const Header = () => {
               <div className='relative cursor-pointer'>
                 <div className='absolute text-red-600 bg-slate-100 rounded-full  right-[-10px]'>
 
-                  <p className='px-[4px] text-sm'>1</p>
+                  <p className='px-[4px] text-sm'>{basketSize}</p>
                 </div>
-                <FaShoppingBasket size={30} color='red' />
+                <Link to="/basket">
+                  <FaShoppingBasket size={30} color='red' />
+                </Link>
               </div>
             </div>
           )}

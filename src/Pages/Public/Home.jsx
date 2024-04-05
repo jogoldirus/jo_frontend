@@ -26,7 +26,7 @@ function Home() {
         </div>
       </div>
       <div className="flex flex-col justify-center  items-center py-10 gap-10 px-4">
-        <h1 className="text-4xl  uppercase text-center text-black ">Vivez le moment dans </h1>
+        <h1 className="text-4xl  uppercase text-center text-black ">Vivez le moment avec nous dans </h1>
         <Timer dateBeforeEvent='2024-07-24' />
       </div>
       <div className="w-full flex flex-row justify-center">
