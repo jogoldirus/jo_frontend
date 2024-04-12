@@ -30,15 +30,20 @@ const Button = ({ text, disabled = false, to, mode, color, onClick, icon, childr
 
   const navigate = useNavigate();
   const handleClick = async () => {
-    if (to) {
-      navigate(to);
-      // navigate to to 
-      return;
+    try {
+
+      if (to) {
+        navigate(to);
+        // navigate to to 
+        return;
+      }
+      if (isLoadingForce === true) return;
+      setIsLoading(true);
+      await onClick();
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
     }
-    if (isLoadingForce === true) return;
-    setIsLoading(true);
-    await onClick();
-    setIsLoading(false);
   };
   let classes = ' disabled:bg-slate-400 disabled:!border-0 border-2  whitespace-nowrap w-full h-full flex flex-row justify-center font-bold transition-all inline-flex items-center px-4 py-2 border rounded-md shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ';
   const getButtonClass = () => {
@@ -68,6 +73,7 @@ const Button = ({ text, disabled = false, to, mode, color, onClick, icon, childr
     <button disabled={disabled} className={getButtonClass()} onClick={handleClick} {...rest}>
       {(isLoading || isLoadingForce === true) && (
         <div
+          className='animate-spin'
           style={{
             display: 'inline-block',
             width: '24px',
@@ -79,7 +85,6 @@ const Button = ({ text, disabled = false, to, mode, color, onClick, icon, childr
             borderBottomColor: 'transparent',
             borderLeftColor: 'currentColor',
             borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
             marginRight: '2px',
           }}
         />

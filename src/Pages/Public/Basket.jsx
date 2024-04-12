@@ -4,17 +4,42 @@ import Button from '../../Composants/Reusable/Button'
 import { useAuth } from '../../Providers/AuthContext'
 import InputTextSaveOnChange from '../../Composants/Reusable/InputTextSaveOnChange'
 import { useState } from 'react'
-
+import { useNavigate } from 'react-router-dom'
+import CreditCard from '../../Composants/Reusable/CreditCard'
+import { fetchWithAuth } from '../../Functions'
 function Basket() {
+  const navigate = useNavigate()
   const { basketSize, getBasketList, removeFromBasket } = useBasket()
-  const { isLoged, login, signup } = useAuth()
+  const { isLogged, login, signup } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmpassword, setConfirmpassword] = useState('')
+  const [name, setName] = useState('')
+  const [forename, setForename] = useState('')
 
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
   const [haveAccount, setHaveAccount] = useState(false)
+
+  const [creditCardData, setCreditCardData] = useState({
+    cardNumber: '',
+    cardHolder: '',
+    expirationDate: '',
+    cvc: ''
+  })
+  const [creditCardDataIsValid, setCreditCardDataIsValid] = useState(false)
+  const handleClickPay = async () => {
+    const basket = getBasketList()
+    fetchWithAuth('/apiV2/user/basket/pay', {
+      method: 'POST',
+      body: { basket, creditCardData }
+    })
+      .then(data => {
+        console.log(data)
+        alert('Paiement effectué avec succès')
+      })
+      .catch(err => console.error(err))
+  }
   if (basketSize === 0) return (
     <div className='flex flex-col px-2 py-1 md:px-20 md:py-10 gap-4'>
       <h1 className='text-2xl text-red-500'>Votre panier</h1>
@@ -34,12 +59,22 @@ function Basket() {
           </div>)
         }
       </div>
-
       {
-        isLoged && <Button color="red" mode="contained" text="Payer" />
+        isLogged && <>
+          <div className='mb-10 mt-10 w-full flex flex-col justify-center items-center'>
+            <div className='w-fit bg-red-600 text-white rounded px-2 py-1 mb-4'>Entrez vos informations de paiement par paiement sécurisé</div>
+            <div className='w-full'>
+              <CreditCard setterOnChange={setCreditCardData} data={creditCardData} setterIsValid={setCreditCardDataIsValid} />
+            </div>
+            <div className='w-1/2 mt-4'>
+              <Button onClick={handleClickPay} color={creditCardDataIsValid ? "red" : "gray"} mode="contained" text={creditCardDataIsValid ? "Payer" : "En attente de vos informations de paiement ..."} />
+            </div>
+          </div>
+
+        </>
       }
       {
-        (!isLoged && !haveAccount) && <div className='bg-slate-200 rounded p-4'>
+        (!isLogged && !haveAccount) && <div className='bg-slate-200 rounded p-4'>
           <p className='text-red-500 text-center font-semibold py-2'>Vous devez avoir un compte pour payer</p>
           <div className='flex flex-col gap-2'>
             <div className='flex flex-row gap-4 flex-wrap'>
@@ -49,25 +84,28 @@ function Basket() {
               </div>
             </div>
             <InputTextSaveOnChange value={email} settterState={setEmail} label="Email" needToSave={false} />
+            <InputTextSaveOnChange value={name} settterState={setName} label="Name" needToSave={false} />
+            <InputTextSaveOnChange value={forename} settterState={setForename} label="Nom" needToSave={false} />
             <InputTextSaveOnChange value={password} settterState={setPassword} label="Mot de passe" needToSave={false} />
             <InputTextSaveOnChange value={confirmpassword} settterState={setConfirmpassword} label="Confirmer le mot de passe" needToSave={false} />
-            <Button onClick={async () => signup(email, password, confirmpassword)} color="red" mode="contained" text="S'inscrire" />
+
+            <Button onClick={async () => await signup({ email, password, confirmpassword, name, forename }).then(() => navigate("/"))} color="red" mode="contained" text="S'inscrire" />
           </div>
         </div>
       }
       {
-        (!isLoged && haveAccount) && <div className='bg-slate-200 rounded p-4'>
+        (!isLogged && haveAccount) && <div className='bg-slate-200 rounded p-4'>
           <p className='text-red-500 text-center font-semibold py-2'>Si vous avez déjà un compte, connectez-vous</p>
           <div className='flex flex-col gap-2'>
             <div className='flex flex-row gap-4 flex-wrap'>
-              <h1 className='text-2xl text-red-500'>Connexion</h1>
+              <h1 className='text-2xl text-red-500 '>Connexion</h1>
               <div>
                 <Button onClick={async () => setHaveAccount(false)} color="red" mode="contained" text="Je n'ai pas de compte" />
               </div>
             </div>
             <InputTextSaveOnChange value={loginEmail} settterState={setLoginEmail} label="Email" needToSave={false} />
             <InputTextSaveOnChange value={loginPassword} settterState={setLoginPassword} label="Mot de passe" needToSave={false} />
-            <Button onClick={async () => login(loginEmail, loginPassword)} color="red" mode="contained" text="Se connecter" />
+            <Button onClick={async () => login({ email: loginEmail, password: loginPassword })} color="red" mode="contained" text="Se connecter" />
           </div>
         </div>
       }

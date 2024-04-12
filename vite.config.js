@@ -7,12 +7,12 @@ export default defineConfig({
   assetsInclude: ['**/*.glb'],
   server: {
     proxy: {
-      // '/api': {
-      //   target: "https://mypaotscan.com",
-      //   changeOrigin: true,
-      //   secure: false,
-      //   // rewrite: (path) => path.replace(/^\/api/, '')
-      // },
+      '/apiV2': {
+        target: "http://localhost:3010",
+        changeOrigin: false,
+        secure: false,
+        // rewrite: (path) => path.replace(/^\/api/, '')
+      },
     }
   },
   resolve: {

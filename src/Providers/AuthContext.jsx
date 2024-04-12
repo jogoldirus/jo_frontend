@@ -32,20 +32,22 @@ const AuthProvider = ({ children }) => {
 
   // Signup Mutation
   const signupMutation = useMutation({
-    mutationFn: async ({ email, password, confirmpassword }) => {
+    mutationFn: async ({ email, password, confirmpassword, name, forename }) => {
       const response = await fetch(`/apiV2/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password, confirmPassword: confirmpassword }),
+        body: JSON.stringify({ email, password, confirmPassword: confirmpassword, name, forename }),
       });
 
       const data = await response.json();
       if (!response.ok) throw new Error('Signup request failed');
+      if (!data.token) throw new Error('No token in response, login failed');
+      localStorage.setItem('token', data.token);
       setIsLogged(true);
       setUserPayload(data.payload);
-      return response.json();
+      return data
     }
   });
 

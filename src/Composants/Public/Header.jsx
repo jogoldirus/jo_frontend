@@ -27,7 +27,7 @@ const Header = () => {
         <Link to="/" className="text-2xl font-semibold">
           JO
         </Link>
-        <p>Welcome {userPayload.email} {userPayload.userID}</p>
+        <p>Bienvenue <span className='uppercase'>{userPayload.forename}</span> {userPayload.name}</p>
         <div className="hidden md:flex items-center space-x-6">
           {/* <Link to="/features" className="text-lg">Découvrir</Link> */}
           <Link to="/offers" className="text-lg">Offres</Link>
@@ -36,8 +36,16 @@ const Header = () => {
           {isLogged ? (
             <>
               <Button to="/admin-dashboard" color={"red"} mode="contained" >Adminboard</Button>
-              <Button to="/dashboard" color={"red"} mode="contained" >Board</Button>
+              <Button to="/dashboard" color={"red"} mode="contained" >Mon espace</Button>
+              <div className='relative cursor-pointer'>
+                <div className='absolute text-red-600 bg-slate-100 rounded-full  right-[-10px]'>
 
+                  <p className='px-[4px] text-sm'>{basketSize}</p>
+                </div>
+                <Link to="/basket">
+                  <FaShoppingBasket size={30} color='red' />
+                </Link>
+              </div>
               <div className='cursor-pointer'><MdLogout size={25} onClick={() => { logout(); navigate('/') }} /></div>
             </>
           ) : (
