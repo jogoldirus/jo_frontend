@@ -4,7 +4,7 @@ import { useAuth } from '../../Providers/AuthContext';
 import { FaHome, FaArrowLeft, FaUser, FaUserFriends, FaBalanceScale } from 'react-icons/fa';  // Import icons
 import { FaGear } from "react-icons/fa6";
 import { BiAnalyse } from "react-icons/bi";
-import { MdDevicesOther, MdLogout } from "react-icons/md";
+import { MdDevicesOther, MdEvent, MdLocalOffer, MdLogout } from "react-icons/md";
 import { VscSettings } from "react-icons/vsc";
 import { AiFillCalculator } from "react-icons/ai";
 const Sidebar = ({ isExpanded, toggleSidebar }) => {
@@ -22,38 +22,25 @@ const Sidebar = ({ isExpanded, toggleSidebar }) => {
       >
         ☰
       </button>
-      <h1 className={`text-center text-2xl font-semibold mb-4 ${isExpanded ? 'block' : 'hidden'}`}>Admin board</h1>
+      <h1 className={`text-center text-2xl font-semibold mb-4 ${isExpanded ? 'block' : 'hidden'}`}>Espace administrateur</h1>
       {isExpanded && <h2 className='text-center'>{userPayload?.email}</h2>}
       <nav className="flex flex-col space-y-4 grow flex-1">
 
         <Link
-          to="/dashboard"
-          className={`flex ${!isExpanded && 'justify-center'} my-4 px-4 py-2 rounded transition duration-200 ease-in-out text-white bg-[var(--"red")] `}
+          to="/admin-dashboard"
+          className={`flex ${!isExpanded && 'justify-center'} my-4 px-4 py-2 rounded transition duration-200 ease-in-out text-white bg-[red] `}
         >
           <FaHome className={`text-center w-6 h-6  ${isExpanded && 'mr-2'} `} />
-          <span className={isExpanded ? 'inline' : 'hidden'}>Dashboard</span>
+          <span className={isExpanded ? 'inline' : 'hidden'}>Accueil</span>
         </Link>
         {[
-          [{ name: 'Mesures', path: '/admin-dashboard/az', icon: <BiAnalyse size={25} /> },
-          { name: 'Patients', path: '/admin-dashboard/analyse', icon: <FaUser size={20} /> },
-            // { name: 'Produits', path: '/dashboard/analyse/products', icon: <GiLiquidSoap size={25} /> },
-            // { name: 'OnFly', path: '/dashboard/onfly', icon: <GrSend size={20} /> }
-          ],
-          [{ name: 'Entreprises', path: '/admin-dashboard/users', icon: <FaUserFriends size={25} /> }],
-          [{ name: 'Droits', path: '/admin-dashboard/rights', icon: <FaBalanceScale size={25} /> }],
-          [{ name: 'Options', path: '/admin-dashboard/az', icon: <FaGear size={25} /> },
-          { name: 'Appareils', path: '/admin-dashboard/devices', icon: <MdDevicesOther size={25} /> },
-          { name: 'Paramètres', path: '/admin-dashboard/parameters', icon: <VscSettings size={25} /> },
-          { name: 'Méthodes', path: '/admin-dashboard/methods', icon: <AiFillCalculator size={25} /> },
-            // { name: 'Questionnaires', path: '/dashboard/survey', icon: < RiSurveyFill size={25} /> },
-            // { name: 'Nouveaux', path: '/dashboard/acceptation', icon: <RiPassValidFill size={25} /> }
-          ],
-          // Add more items here
+          [{ name: 'Evenements', path: '/admin-dashboard/events', icon: <MdEvent size={25} /> }],
+          [{ name: 'Offres', path: '/admin-dashboard/offers', icon: <MdLocalOffer size={25} /> }],
         ].map((item) => {
           if (Array.isArray(item)) {
             const mainItem = item[0]
             const subItem = item.slice(1)
-            return <div className={`hover:shadow-lg relative flex flex-col group hover:bg-[var(--"red")] select-none ${subItem.length > 0 ? 'rounded-t' : 'rounded'}`}>
+            return <div className={`hover:shadow-lg relative flex flex-col group hover:bg-[red] select-none ${subItem.length > 0 ? 'rounded-t' : 'rounded'}`}>
               <Link style={{ backgroundColor: isActive(mainItem.path) && "red", color: isActive(mainItem.path) ? 'white' : "red" }} key={mainItem.name} to={subItem.length === 0 && mainItem.path} className={` flex ${!isExpanded && 'justify-center'} px-4 py-2 rounded  ease-in-out group-hover:!text-white`}
                 aria-current={isActive(mainItem.path) ? 'page' : undefined}
               >

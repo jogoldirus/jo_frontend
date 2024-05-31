@@ -26,8 +26,12 @@ const BasketProvider = ({ children }) => {
     setBasketSize(newBasket.length);
     localStorage.setItem('basket', JSON.stringify([...newBasket]));
   };
+  const clearBasket = () => {
+    localStorage.setItem('basket', JSON.stringify([]));
+    setBasketSize(0);
+  };
   return (
-    <BasketContext.Provider value={{ addToBasket, removeFromBasket, basketSize, getBasketList }}>
+    <BasketContext.Provider value={{ clearBasket, addToBasket, removeFromBasket, basketSize, getBasketList }}>
       {children}
     </BasketContext.Provider>
   );

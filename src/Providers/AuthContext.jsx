@@ -29,10 +29,10 @@ const AuthProvider = ({ children }) => {
       return data;
     }
   });
-
   // Signup Mutation
   const signupMutation = useMutation({
     mutationFn: async ({ email, password, confirmpassword, name, forename }) => {
+      if (password !== confirmpassword) throw new Error('Passwords do not match');
       const response = await fetch(`/apiV2/auth/signup`, {
         method: 'POST',
         headers: {
@@ -50,7 +50,6 @@ const AuthProvider = ({ children }) => {
       return data
     }
   });
-
   // Verify Token Query
   const { isLoading } = useQuery({
     queryKey: ['verifyToken'],
@@ -89,7 +88,15 @@ const AuthProvider = ({ children }) => {
     enabled: !!localStorage.getItem('token') // Exécute la requête uniquement si le token existe
   });
 
-
+  const deleteAccount = async () => {
+    await fetchWithAuth("/apiV2/auth/deleteAccount", { method: 'POST' })
+      .then(() => {
+        setIsLogged(false);
+        setUserPayload({});
+        localStorage.removeItem('token');
+      })
+      .catch(err => console.error(err));
+  }
   const logout = () => {
     localStorage.removeItem('token');
     setIsLogged(false);
@@ -99,7 +106,7 @@ const AuthProvider = ({ children }) => {
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <AuthContext.Provider value={{ userPayload, isLogged, login: loginMutation.mutateAsync, signup: signupMutation.mutateAsync, logout }}>
+    <AuthContext.Provider value={{ deleteAccount, userPayload, isLogged, login: loginMutation.mutateAsync, signup: signupMutation.mutateAsync, logout }}>
       {children}
     </AuthContext.Provider>
   );

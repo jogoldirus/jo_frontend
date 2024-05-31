@@ -14,29 +14,36 @@ import AdminHome from './Pages/Admin/AdminHome.jsx';
 import Offers from './Pages/Public/Offers.jsx';
 import { BasketProvider } from './Providers/BasketContext.jsx';
 import Basket from './Pages/Public/Basket.jsx';
+import ClientHome from './Pages/Client/ClientHome.jsx';
+import PdfTicketTemplate from './Composants/Client/PdfTicketTemplate.jsx';
+import AdminEvents from './Pages/Admin/AdminEvents.jsx';
+import AdminOffers from './Pages/Admin/AdminOffers.jsx';
+import Register from './Pages/Public/Register.jsx';
+import TicketVerification from './Pages/Public/TicketVerification.jsx';
 const queryClient = new QueryClient()
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+      <Route path='/pdfview' element={<div className='flex flex-row justify-center z-50 bg-slate-700 py-2'><PdfTicketTemplate /></div>} />
+      <Route path='/ticketverification/:completeKey' element={<TicketVerification />} />
       <Route path='/' element={<HeaderAndFooter />}>
         <Route index element={<Home />} />
         <Route path="/offers" element={<Offers />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/basket' element={<Basket />} />
         {/* <Route path='/signup' element={<Signup />} /> */}
         <Route path='*' element={<Error404 />} />
       </Route>
-      {/* 
-      <Route path='/dashboard' element={<ClientWrapper />}>
+      <Route path='/dashboard' element={<HeaderAndFooter />}>
         <Route index element={<ClientHome />} />
-        <Route path='/dashboard/makeanalyse' element={<AnalyseWrapper />} />
-        <Route path='/dashboard/analyse' element={<ClientAnalyseArray />} />
         <Route path='*' element={<Error404 />} />
-      </Route> */}
+      </Route> *
 
       <Route path='/admin-dashboard' element={<AdminBoard />}>
         <Route index element={<AdminHome />} />
-        {/* <Route path='/dashboard/arbitrage' element={<DBArbitrage />} /> */}
+        <Route path='/admin-dashboard/events' element={<AdminEvents />} />
+        <Route path='/admin-dashboard/offers' element={<AdminOffers />} />
         <Route path='*' element={<Error404 />} />
       </Route>
       <Route path='*' element={<Error404 />} />

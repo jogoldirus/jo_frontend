@@ -7,10 +7,9 @@ export default defineConfig({
   assetsInclude: ['**/*.glb'],
   server: {
     proxy: {
-      '/apiV2': {
+      '/api': {
         target: "http://localhost:3010",
         changeOrigin: false,
-        secure: false,
         // rewrite: (path) => path.replace(/^\/api/, '')
       },
     }
