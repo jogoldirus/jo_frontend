@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
   // Login Mutation
   const loginMutation = useMutation({
     mutationFn: async ({ email, password }) => {
-      const response = await fetch("/apiV2/auth/login", {
+      const response = await fetch("/api/auth/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
   const signupMutation = useMutation({
     mutationFn: async ({ email, password, confirmpassword, name, forename }) => {
       if (password !== confirmpassword) throw new Error('Passwords do not match');
-      const response = await fetch(`/apiV2/auth/signup`, {
+      const response = await fetch(`/api/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
         }
       };
 
-      return await fetchWithAuth("/apiV2/auth/verifyToken", { config, method: 'POST' })
+      return await fetchWithAuth("/api/auth/verifyToken", { config, method: 'POST' })
         .then(async result => {
           setIsLogged(true);
           setUserPayload(result.result);
@@ -89,7 +89,7 @@ const AuthProvider = ({ children }) => {
   });
 
   const deleteAccount = async () => {
-    await fetchWithAuth("/apiV2/auth/deleteAccount", { method: 'POST' })
+    await fetchWithAuth("/api/auth/deleteAccount", { method: 'POST' })
       .then(() => {
         setIsLogged(false);
         setUserPayload({});

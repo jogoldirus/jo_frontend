@@ -36,16 +36,24 @@ const OfferCard = ({ name = 'Name formula', placeIncluded = "X", description = '
 }
 function Offers() {
 
-  const [offers, setOffers] = useState()
+  const [offers, setOffers] = useState({})
 
   useEffect(() => {
-    fetchWithoutAuth('/apiV2/offers', {
+    fetchWithoutAuth('/api/offers', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       }
     })
-      .then(data => setOffers(data))
+      .then(data => {
+        let tmp = {}
+        data = data.map(item => {
+          let eventID = item.eventID
+          if (tmp[eventID] === undefined) tmp[eventID] = [item]
+          else tmp[eventID].push(item)
+        })
+        setOffers(tmp)
+      })
       .catch(err => console.error(err))
   }, [])
   return (
@@ -60,11 +68,26 @@ function Offers() {
           Array.isArray(offers) && offers.length === 0 && <p>Aucune offre disponible</p>
         }
         {
-          Array.isArray(offers) && offers.map((item, i) => <OfferCard key={i + 'offerskey'} id={item.id} price={item.price} color={item.color} placeIncluded={item.placeInclude} name={item.name} description={item.description} />)
+          Object.keys(offers).length >= 1 && Object.keys(offers).map((event, i) =>
+
+            <div>
+              {Object.keys(offers).length > 1 && <h1 className="text-center">{offers[event][0].eventName}</h1>}
+              <div className="flex flex-row flex-wrap gap-10 pt-8 justify-evenly ">
+                {
+                  offers[event].map((item) =>
+
+                    <OfferCard key={i + 'offerskey'} id={item.id} price={item.price} color={item.color} placeIncluded={item.placeInclude} name={item.name} description={item.description} />
+                  )
+                }
+              </div>
+            </div>
+
+          )
+
         }
       </div>
-    </div>
+    </div >
+
   )
 }
-
 export default Offers

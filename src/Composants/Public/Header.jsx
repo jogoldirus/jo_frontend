@@ -21,19 +21,23 @@ const Header = () => {
   // useEffect(() => {
   //   gsap.to(menuRef.current, { autoAlpha: menuOpen ? 1 : duration: 0.3 });
   // }, [menuOpen]);
-  const acceptedEmail = ["jogoldirr@gmail.com"]
+  const acceptedEmail = ["jogoldirr@gmail.com", "admin@admin.com"]
   return (
     <header className="bg-white py-2 md:px-0 px-4  shadow-md">
       <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="text-2xl font-semibold">
-          <img src={Logo} alt="logo" width={50} height={50} />
-        </Link>
-        {userPayload?.forename && <p>Bienvenue <span className='uppercase'>{userPayload.forename}</span> {userPayload.name}</p>}
-        <div className="hidden md:flex items-center space-x-6">
-          {/* <Link to="/features" className="text-lg">Découvrir</Link> */}
-          <Link to="/offers" className="text-lg">Offres</Link>
+        <div className='flex flex-row gap-5'>
+
+          <Link to="/" className="text-2xl font-semibold">
+            <img src={Logo} alt="logo" width={50} height={50} />
+          </Link>
+
         </div>
+        {/* {userPayload?.forename && <p>Bienvenue <span className='uppercase'>{userPayload.forename}</span> {userPayload.name}</p>} */}
         <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-6">
+            {/* <Link to="/features" className="text-lg">Découvrir</Link> */}
+            <Link to="/offers" className="text-lg">Offres</Link>
+          </div>
           {isLogged ? (
             <>
               {acceptedEmail.includes(userPayload.email) && <Button to="/admin-dashboard" color={"red"} mode="contained" >Espace administrateur</Button>}
@@ -74,7 +78,7 @@ const Header = () => {
 
           {menuOpen && <div ref={menuRef} className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg p-4 space-y-2 z-10">
             <Link to="/" className="block px-4 py-2">Accueil</Link>
-            <Link to="/pricing" className="block px-4 py-2">Offres</Link>
+            <Link to="/offers" className="block px-4 py-2">Offres</Link>
             {isLogged ? (
               <>
                 <Link to="/dashboard" className="block px-4 py-2">Dashboard</Link>

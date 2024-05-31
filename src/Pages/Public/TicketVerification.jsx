@@ -10,7 +10,7 @@ function TicketVerification() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const checkTicket = async () => {
-    const isValid = fetchWithoutAuth(`/apiV2/user/ticket/verify/${completeKey}`, { method: "POST" }).then(data => {
+    const isValid = fetchWithoutAuth(`/api/user/ticket/verify/${completeKey}`, { method: "POST" }).then(data => {
       setTicket(data)
       setLoading(false)
     })

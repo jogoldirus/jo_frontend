@@ -9,7 +9,7 @@ function ClientHome() {
   const { isLogged, logout, userPayload, deleteAccount } = useAuth()
   useEffect(() => {
     if (!isLogged) return
-    if (activeTab === 1) fetchWithAuth('/apiV2/user/tickets')
+    if (activeTab === 1) fetchWithAuth('/api/user/tickets')
       .then(data => setTickets(data))
       .catch(err => console.error(err))
   }, [activeTab])

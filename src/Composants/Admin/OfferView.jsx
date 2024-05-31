@@ -14,7 +14,7 @@ function OfferView({ data, row, updateData }) {
   const [eventList, setEventList] = useState([])
   const saveName = async () => {
     if (name === data.Name) return Promise.resolve()
-    return fetchWithAuth(`/apiV2/events/${data.id}/changename`, {
+    return fetchWithAuth(`/api/offer/${data.id}/changename`, {
       method: "POST",
       body: { name }
     })
@@ -29,7 +29,7 @@ function OfferView({ data, row, updateData }) {
   }
   const saveDescription = async () => {
     if (description === data.description) return Promise.resolve()
-    return fetchWithAuth(`/apiV2/offer/${data.id}/changedescription`, {
+    return fetchWithAuth(`/api/offer/${data.id}/changedescription`, {
       method: "POST",
       body: { description }
     })
@@ -44,7 +44,7 @@ function OfferView({ data, row, updateData }) {
   }
   const savePrice = async () => {
     if (price === data.price) return Promise.resolve()
-    return fetchWithAuth(`/apiV2/offer/${data.id}/changeprice`, {
+    return fetchWithAuth(`/api/offer/${data.id}/changeprice`, {
       method: "POST",
       body: { price }
     })
@@ -59,7 +59,7 @@ function OfferView({ data, row, updateData }) {
   }
   const saveEventID = async () => {
     if (selectedEventID === data.eventID) return Promise.resolve()
-    return fetchWithAuth(`/apiV2/offer/${data.id}/changeevent`, {
+    return fetchWithAuth(`/api/offer/${data.id}/changeevent`, {
       method: "POST",
       body: { eventID: selectedEventID }
     })
@@ -75,7 +75,7 @@ function OfferView({ data, row, updateData }) {
   }
   const savePlaceInclude = async () => {
     if (placeInclude === data.placeInclude) return Promise.resolve()
-    return fetchWithAuth(`/apiV2/offer/${data.id}/changeplaceinclude`, {
+    return fetchWithAuth(`/api/offer/${data.id}/changeplaceinclude`, {
       method: "POST",
       body: { placeInclude }
     })
@@ -89,7 +89,7 @@ function OfferView({ data, row, updateData }) {
       })
   }
   const getEventList = async () => {
-    return fetchWithAuth(`/apiV2/events`)
+    return fetchWithAuth(`/api/events`)
       .then(result => {
         setEventList(result)
         return Promise.resolve()

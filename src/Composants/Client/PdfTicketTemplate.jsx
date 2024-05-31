@@ -55,7 +55,7 @@ const PdfTicketTemplate = ({ className, theRef, ticket = {
                 </div>
                 <div className="flex justify-end grow-0 content-end">
                   <QRCode
-                    value={`${window.location.origin}/ticket/verification/${completeKey}`}
+                    value={`${window.location.origin}/ticketverification/${completeKey}`}
                     size={128}
                     includeMargin={false}
                     fgColor="#000000"

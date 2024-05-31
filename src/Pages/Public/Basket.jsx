@@ -31,7 +31,7 @@ function Basket() {
   const [creditCardDataIsValid, setCreditCardDataIsValid] = useState(false)
   const handleClickPay = async () => {
     const basket = getBasketList()
-    fetchWithAuth('/apiV2/user/basket/pay', {
+    fetchWithAuth('/api/user/basket/pay', {
       method: 'POST',
       body: { basket, creditCardData }
     })

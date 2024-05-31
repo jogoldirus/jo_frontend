@@ -207,7 +207,7 @@ function MagicArray({ color = "#c0c0c0", selectionActions, columns, primaryKey =
               onClick={fetchDatas}
               className="px-4 py-2 text-sm font-medium text-white  bg-black bg-opacity-0 hover:bg-opacity-30 rounded disabled:bg-gray-300"
             >
-              Refresh
+              Rafraichir
             </button>
           </div>
         </div>
