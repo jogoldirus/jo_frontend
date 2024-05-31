@@ -19,7 +19,7 @@ Live : https://studijo.alexiscollignon.fr/
 Ce projet a été développer sous `Windows` avec les technologies suivantes : 
 
      Serveur : 
-        - MySQL
+        - MariaDB
         - Apache
         - Certificat Let's Encrypt (HTTPS)
      Backend (API) :
@@ -34,8 +34,8 @@ L'application est sécurisé, et utilise différences technologies pour s'y assu
 
  - Hashage des mots de passe.
  - Utilisation de token pour identifier l'utilisateur lors des requetes importantes. (JsonWebToken)
- - Utilisation de package ne dépendant de presque aucun autre pour s'assurer la viabilité dans le temps.
- - 
+ - Utilisation de package ne dépendant de presque aucun autre pour s'assurer la viabilité de l'application dans le temps.
+ 
 
 ### Manuel d'utilisation
 
@@ -75,7 +75,7 @@ export default defineConfig({
 
 #### Utilisation
 
-Pour utiliser l'application, vous devrez
+vous pouvez
 
 - Vous crée un compte via le bouton `Inscription`
 - Se connecter via le bouton `Connexion`
@@ -86,4 +86,7 @@ Pour utiliser l'application, vous devrez
 `
     Password : Admin1
 `
+- En etant administrateur, vous pouvez crée,modifier ou supprimer les offres 
+
+- Consulter vos billets sur l'espace utilisateur disponible en etant connecté et en cliquant sur `Mon espace`, et les télécharger en cliuquant sur `Mes billets et reservations`, mettre la souri sur un billet et cliquer sur le logo `Télechargement`
 
